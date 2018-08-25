@@ -3,14 +3,7 @@
 #include "TankAIController.h"
 #include "../Public/TankAIController.h"
 
-ATank* ATankAIController::GetPlayerTank() const
-{
-	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PlayerPawn) { return nullptr; }
-
-	return Cast<ATank>(PlayerPawn);
-}
-
+// Called when the game starts or when spawned
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,7 +17,28 @@ void ATankAIController::BeginPlay()
 	}
 }
 
+// Called every frame
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetPlayerTank()) {
+		// TODO Move towards player
+
+		// Aim towards player
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+	}
+}
+
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
+}
+
+ATank* ATankAIController::GetPlayerTank() const
+{
+	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (!PlayerPawn) { return nullptr; }
+
+	return Cast<ATank>(PlayerPawn);
 }

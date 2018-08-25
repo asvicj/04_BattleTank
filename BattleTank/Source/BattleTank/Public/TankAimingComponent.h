@@ -8,6 +8,7 @@
 
 
 class UTankBarrel; 
+class UTankTurretComponent;
 
 
 // Hold Barrel properties
@@ -32,10 +33,11 @@ public:
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
-	// TODO Set Turret Reference
+	void SetTurretReference(UTankTurretComponent* TurretToSet);
 
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurretComponent* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 };
